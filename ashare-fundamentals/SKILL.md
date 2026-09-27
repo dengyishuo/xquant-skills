@@ -1,11 +1,20 @@
 ---
 name: ashare-fundamentals
 description: Download, resume, validate, inventory, and optionally import A-share financial statements and fundamental indicators. Use for A股财报、三表、财务指标、Parquet 数据集、DuckDB 查询或 MySQL 入库；do not use for行情下载、交易执行或策略回测。
+metadata:
+  version: "0.2.0"
+  author: "Deng Yishuo"
+  display_name: "A股财库"
+  display_name_en: "A-Share Fundamentals"
+  description_zh: "下载、续传、校验和盘点 A 股三张财务报表及主要财务指标。"
+  description_en: "Download, resume, validate, and inventory A-share statements and fundamental indicators."
 ---
 
 # A股财库 · A-Share Fundamentals
 
 Build a reproducible A-share fundamentals dataset without requiring R or a database.
+
+This is a portable Agent Skill for WorkBuddy, Doubao Work, QwenWork, Codex, Claude Code, and other hosts that support `SKILL.md`. For installation and host-specific limitations, read [platforms.md](references/platforms.md); WorkBuddy may load it as `@references/platforms.md`.
 
 ## Choose the operation
 
@@ -14,6 +23,18 @@ Build a reproducible A-share fundamentals dataset without requiring R or a datab
 - For status or coverage, run `scripts/inventory.py` and inspect generated summaries. Do not download or import for a read-only request.
 - For MySQL, read [mysql.md](references/mysql.md). Treat MySQL and `PyMySQL` as optional; never install or start a database service without explicit user approval.
 - For R, read [r-optional.md](references/r-optional.md). R is an optional consumer, not part of the download path.
+
+## Runtime preflight
+
+Before executing a script, confirm that the host exposes a local shell, Python 3.10+, outbound HTTPS, and a writable workspace. Web-only or cloud workspaces without local command execution can read the workflow but cannot run the downloader.
+
+Check dependencies without changing the environment:
+
+```bash
+python3 -c "import pandas, pyarrow, requests; print('core dependencies ready')"
+```
+
+If a dependency is missing, explain the change and request approval before running `python3 -m pip install -r requirements.txt`. Never install MySQL, R, or optional Python packages implicitly.
 
 ## Workflow invariants
 
@@ -51,4 +72,3 @@ Inspect each script with `--help` before adapting a period. For a current or fut
 ## Data source and safety
 
 The bundled downloaders use public Eastmoney F10 endpoints and retain the source fields. Endpoints and terms may change. Avoid aggressive concurrency, obey applicable terms, and identify source-side gaps instead of fabricating rows. Never commit credentials or downloaded datasets.
-

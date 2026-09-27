@@ -2,7 +2,7 @@
 
 Reusable Agent Skills for A-share financial data, quantitative research, and XQuant workflows.
 
-`xquant-skills` 面向 Codex、Claude Code、Cursor 等支持 Agent Skills 的 AI 编程代理。仓库中的 Skill 将数据下载、断点续传、质量校验、存储和数据库导入整理成可复用工作流。
+`xquant-skills` 面向 WorkBuddy、豆包工作、千问办公、Codex、Claude Code、Cursor 等支持 Agent Skills 的 AI 代理。仓库中的 Skill 将数据下载、断点续传、质量校验、存储和数据库导入整理成可复用工作流。
 
 ## Skills
 
@@ -17,6 +17,27 @@ npx skills add dengyishuo/xquant-skills --skill ashare-fundamentals
 ```
 
 也可以直接克隆仓库，把 `ashare-fundamentals` 目录复制到 Agent 的 Skills 目录。
+
+### WorkBuddy、豆包工作与千问办公
+
+本仓库使用三端共同支持的 `SKILL.md + scripts + references` 结构，并提供跨平台上传包：
+
+```bash
+python3 scripts/build_skill_package.py
+```
+
+命令会生成两个包，压缩包根目录都是 `SKILL.md`：
+
+- `dist/ashare-fundamentals-v0.2.0.zip`：标准 Agent Skills 包，用于豆包工作、千问办公、Codex、Claude Code 等平台。
+- `dist/ashare-fundamentals-workbuddy-v0.2.0.zip`：WorkBuddy 包，仅把官方要求的版本、作者和中英文描述提升到 frontmatter 顶层；正文与脚本完全相同。
+
+| 平台 | 推荐安装方式 | 本地目录方式 |
+| --- | --- | --- |
+| WorkBuddy | 上传 `*-workbuddy-*.zip` | 把 WorkBuddy ZIP 解压到客户端指定的 Skill 目录 |
+| 豆包工作 | 上传标准 ZIP | 以客户端显示的个人技能目录为准 |
+| 千问办公 | 从 GitHub 安装或上传标准 ZIP | `~/.qwenworkcn/skills/ashare-fundamentals/` |
+
+详细说明见 [`references/platforms.md`](./ashare-fundamentals/references/platforms.md)。由于该 Skill 会运行 Python 并读写本地数据，三端都应优先在桌面端或具备本地执行能力的工作空间使用。
 
 ## 依赖原则
 
@@ -35,4 +56,3 @@ Skill **不会自动安装或启动 MySQL**。如果本地没有 MySQL，完整�
 ## License
 
 [MIT](./LICENSE)
-
