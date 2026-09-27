@@ -24,19 +24,24 @@ npx skills add dengyishuo/xquant-skills --skill ashare-fundamentals
 
 #### 第一步：克隆仓库
 
-下面示例把仓库放在 `~/xquant-work/`：
+先进入你希望保存项目的任意目录，然后克隆仓库。例如当前目录就是你准备存放项目的位置时，直接执行：
 
 ```bash
-cd ~/xquant-work
 git clone https://github.com/dengyishuo/xquant-skills.git
 ```
 
-如果你已经克隆过仓库，不需要再次执行 `git clone`，直接进入已有目录即可。
+命令会在当前目录创建一个名为 `xquant-skills` 的文件夹。如果你已经克隆过仓库，不需要再次执行 `git clone`，直接进入已有目录即可。
 
 #### 第二步：进入 xquant-skills 目录
 
 ```bash
-cd ~/xquant-work/xquant-skills
+cd xquant-skills
+```
+
+如果仓库不在当前目录，请把上面的命令替换为实际路径，例如：
+
+```bash
+cd /你的实际路径/xquant-skills
 ```
 
 可以用下面的命令确认当前位置正确：
@@ -45,7 +50,7 @@ cd ~/xquant-work/xquant-skills
 pwd
 ```
 
-输出应该以 `/xquant-work/xquant-skills` 结尾。不要在用户主目录 `~` 中直接运行后面的相对路径命令。
+输出应该以 `/xquant-skills` 结尾。不要在仓库目录之外直接运行后面的相对路径命令。
 
 #### 第三步：生成平台安装包
 
