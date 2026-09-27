@@ -20,13 +20,46 @@ npx skills add dengyishuo/xquant-skills --skill ashare-fundamentals
 
 ### WorkBuddy、豆包工作与千问办公
 
-本仓库使用三端共同支持的 `SKILL.md + scripts + references` 结构，并提供跨平台上传包：
+本仓库使用三端共同支持的 `SKILL.md + scripts + references` 结构。请先把仓库克隆到本地，再进入 `xquant-skills` 仓库目录运行打包脚本。
+
+#### 第一步：克隆仓库
+
+下面示例把仓库放在 `~/xquant-work/`：
+
+```bash
+cd ~/xquant-work
+git clone https://github.com/dengyishuo/xquant-skills.git
+```
+
+如果你已经克隆过仓库，不需要再次执行 `git clone`，直接进入已有目录即可。
+
+#### 第二步：进入 xquant-skills 目录
+
+```bash
+cd ~/xquant-work/xquant-skills
+```
+
+可以用下面的命令确认当前位置正确：
+
+```bash
+pwd
+```
+
+输出应该以 `/xquant-work/xquant-skills` 结尾。不要在用户主目录 `~` 中直接运行后面的相对路径命令。
+
+#### 第三步：生成平台安装包
 
 ```bash
 python3 scripts/build_skill_package.py
 ```
 
-命令会生成两个包，压缩包根目录都是 `SKILL.md`：
+打包完成后，文件位于当前仓库的 `dist/` 目录。可以这样查看：
+
+```bash
+ls -lh dist/
+```
+
+其中会有两个安装包，压缩包根目录都是 `SKILL.md`：
 
 - `dist/ashare-fundamentals-v0.2.0.zip`：标准 Agent Skills 包，用于豆包工作、千问办公、Codex、Claude Code 等平台。
 - `dist/ashare-fundamentals-workbuddy-v0.2.0.zip`：WorkBuddy 包，仅把官方要求的版本、作者和中英文描述提升到 frontmatter 顶层；正文与脚本完全相同。
