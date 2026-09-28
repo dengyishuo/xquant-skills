@@ -22,7 +22,7 @@ from typing import Any
 import pandas as pd
 import pyarrow.parquet as pq
 
-import download_a_share_financial_statements as common
+import download_statements as common
 
 
 QUARTERS = {

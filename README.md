@@ -12,11 +12,13 @@ Reusable Agent Skills for A-share financial data, quantitative research, and XQu
 
 ## 安装 Skill
 
+先把仓库克隆到本地：
+
 ```bash
-npx skills add dengyishuo/xquant-skills --skill ashare-fundamentals
+git clone https://github.com/dengyishuo/xquant-skills.git
 ```
 
-也可以直接克隆仓库，把 `ashare-fundamentals` 目录复制到 Agent 的 Skills 目录。
+支持 Agent Skills 的宿主（Codex、Claude Code、Cursor 等）可以直接把 `ashare-fundamentals` 目录复制到该宿主的 Skills 目录。下面的三个平台需要先打包再安装。
 
 ### WorkBuddy、豆包工作与千问办公
 
@@ -66,8 +68,8 @@ ls -lh dist/
 
 其中会有两个安装包，压缩包根目录都是 `SKILL.md`：
 
-- `dist/ashare-fundamentals-v0.2.0.zip`：标准 Agent Skills 包，用于豆包工作、千问办公、Codex、Claude Code 等平台。
-- `dist/ashare-fundamentals-workbuddy-v0.2.0.zip`：WorkBuddy 包，仅把官方要求的版本、作者和中英文描述提升到 frontmatter 顶层；正文与脚本完全相同。
+- `dist/ashare-fundamentals-v0.2.1.zip`：标准 Agent Skills 包，用于豆包工作、千问办公、Codex、Claude Code 等平台。
+- `dist/ashare-fundamentals-workbuddy-v0.2.1.zip`：WorkBuddy 包，仅把官方要求的版本、作者和中英文描述提升到 frontmatter 顶层；正文与脚本完全相同。
 
 | 平台 | 推荐安装方式 | 本地目录方式 |
 | --- | --- | --- |

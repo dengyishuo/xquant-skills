@@ -14,7 +14,7 @@ The command creates a standard Agent Skills ZIP and a WorkBuddy ZIP. Both place 
 
 ## WorkBuddy
 
-Use **Experts · Skills · Connectors → Skills → Add Skill → Upload Skill** and select `ashare-fundamentals-workbuddy-v0.2.0.zip`. For project-local development, extract that WorkBuddy package—not the standard source folder—into `.workbuddy/skills/ashare-fundamentals/` or the user Skill directory shown by the client.
+Use **Experts · Skills · Connectors → Skills → Add Skill → Upload Skill** and select `ashare-fundamentals-workbuddy-v0.2.1.zip`. For project-local development, extract that WorkBuddy package—not the standard source folder—into `.workbuddy/skills/ashare-fundamentals/` or the user Skill directory shown by the client.
 
 WorkBuddy requires `description`, `description_zh`, `description_en`, `version`, and `author` metadata. These fields are maintained in the shared `SKILL.md`. The Skill needs Bash/local-command permission to run Python. Review outbound network and workspace write permissions before the first download.
 
@@ -22,7 +22,7 @@ Official format documentation: <https://open.workbuddy.cn/docs/skill>
 
 ## Doubao Work
 
-Open **技能·连接器 → 新建/上传技能** and upload the standard package `ashare-fundamentals-v0.2.0.zip`. Prefer local-computer mode because the downloader runs Python, accesses public HTTPS endpoints, and writes Parquet files. A cloud computer must separately provide Python, dependencies, network access, and persistent storage.
+Open **技能·连接器 → 新建/上传技能** and upload the standard package `ashare-fundamentals-v0.2.1.zip`. Prefer local-computer mode because the downloader runs Python, accesses public HTTPS endpoints, and writes Parquet files. A cloud computer must separately provide Python, dependencies, network access, and persistent storage.
 
 If the client already discovers local Agent Skills, point it at the `ashare-fundamentals` folder. Do not guess or hard-code a private installation path: use the directory shown by the installed client, because local and cloud Skill stores are separate.
 

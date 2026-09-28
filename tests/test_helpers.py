@@ -1,11 +1,16 @@
-from importlib.util import module_from_spec, spec_from_file_location
-from pathlib import Path
+import importlib
+import re
+import sys
 import tempfile
 import unittest
 import zipfile
+from importlib.util import module_from_spec, spec_from_file_location
+from pathlib import Path
 
 
 ROOT = Path(__file__).parents[1]
+SKILL_DIR = ROOT / "ashare-fundamentals"
+SKILL_SCRIPTS_DIR = SKILL_DIR / "scripts"
 
 
 def load_script(name: str):
@@ -15,6 +20,23 @@ def load_script(name: str):
     assert spec.loader is not None
     spec.loader.exec_module(module)
     return module
+
+
+def load_root_script(name: str):
+    path = ROOT / "scripts" / name
+    spec = spec_from_file_location(name.replace(".py", ""), path)
+    module = module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(module)
+    return module
+
+
+def declared_version() -> str:
+    """Read the version from SKILL.md so bumping it cannot break this suite."""
+    text = (SKILL_DIR / "SKILL.md").read_text(encoding="utf-8")
+    match = re.search(r'(?m)^\s*version:\s*"?(\d+\.\d+\.\d+)"?\s*$', text)
+    assert match is not None, "SKILL.md is missing a semantic version"
+    return match.group(1)
 
 
 class HelperTests(unittest.TestCase):
@@ -60,17 +82,51 @@ class HelperTests(unittest.TestCase):
                 skill = archive.read("SKILL.md").decode("utf-8")
             self.assertIn("description_zh:", skill)
             self.assertIn("description_en:", skill)
-            self.assertIn("version: 0.2.0", skill)
+            self.assertIn(f"version: {declared_version()}", skill)
             self.assertIn("author: Deng Yishuo", skill)
 
 
-def load_root_script(name: str):
-    path = ROOT / "scripts" / name
-    spec = spec_from_file_location(name.replace(".py", ""), path)
-    module = module_from_spec(spec)
-    assert spec.loader is not None
-    spec.loader.exec_module(module)
-    return module
+class SkillIntegrityTests(unittest.TestCase):
+    """Keep the packaged skill internally consistent.
+
+    ``python -m compileall`` only checks syntax and never resolves imports, and
+    the tests above load scripts one by one by path, so a stale sibling module
+    name used to pass CI and only blow up when a user ran the command.
+    """
+
+    def test_every_script_imports(self):
+        scripts = sorted(SKILL_SCRIPTS_DIR.glob("*.py"))
+        self.assertTrue(scripts, f"no scripts found in {SKILL_SCRIPTS_DIR}")
+
+        sys.path.insert(0, str(SKILL_SCRIPTS_DIR))
+        try:
+            for script in scripts:
+                with self.subTest(script=script.name):
+                    importlib.import_module(script.stem)
+        finally:
+            sys.path.remove(str(SKILL_SCRIPTS_DIR))
+
+    def test_skill_md_only_references_existing_scripts(self):
+        skill_md = (SKILL_DIR / "SKILL.md").read_text(encoding="utf-8")
+        referenced = sorted(set(re.findall(r"scripts/([A-Za-z0-9_]+\.py)", skill_md)))
+        self.assertTrue(referenced, "SKILL.md does not reference any script")
+        for name in referenced:
+            with self.subTest(script=name):
+                self.assertTrue(
+                    (SKILL_SCRIPTS_DIR / name).is_file(),
+                    f"SKILL.md references a missing script: {name}",
+                )
+
+    def test_skill_md_only_references_existing_docs(self):
+        skill_md = (SKILL_DIR / "SKILL.md").read_text(encoding="utf-8")
+        referenced = sorted(set(re.findall(r"references/([A-Za-z0-9_.-]+)", skill_md)))
+        self.assertTrue(referenced, "SKILL.md does not reference any reference doc")
+        for name in referenced:
+            with self.subTest(reference=name):
+                self.assertTrue(
+                    (SKILL_DIR / "references" / name).is_file(),
+                    f"SKILL.md references a missing document: {name}",
+                )
 
 
 if __name__ == "__main__":
