@@ -2,7 +2,7 @@
 name: ashare-fundamentals
 description: Download, resume, validate, inventory, and optionally import A-share financial statements and fundamental indicators. Use for A股财报、三表、财务指标、Parquet 数据集、DuckDB 查询或 MySQL 入库；do not use for行情下载、交易执行或策略回测。
 metadata:
-  version: "0.2.1"
+  version: "0.2.2"
   author: "Deng Yishuo"
   display_name: "A股财库"
   display_name_en: "A-Share Fundamentals"

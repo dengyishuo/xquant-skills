@@ -4,8 +4,16 @@ MySQL is not required for downloading or querying Parquet files. Use this path o
 
 ## Install only the Python connector
 
+From a repository clone:
+
 ```bash
 python -m pip install -e '.[mysql]'
+```
+
+If you only have the unpacked Skill package (the ZIP has no `pyproject.toml`), install the connector directly:
+
+```bash
+python -m pip install PyMySQL
 ```
 
 Set credentials in environment variables; never commit them:
@@ -34,4 +42,8 @@ python ashare-fundamentals/scripts/import_mysql.py \
 ```
 
 The importer uses upserts and batches rows. Run `--dry-run` first when checking discovery. Database mutation still requires the user's authorization.
+
+## Example queries
+
+[query_examples.sql](query_examples.sql) holds ready-to-run statements for common questions, including the latest reporting periods per company and cross-statement lookups. Run them with the `mysql` client once the tables are loaded.
 

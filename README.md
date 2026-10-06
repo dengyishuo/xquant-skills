@@ -68,8 +68,8 @@ ls -lh dist/
 
 其中会有两个安装包，压缩包根目录都是 `SKILL.md`：
 
-- `dist/ashare-fundamentals-v0.2.1.zip`：标准 Agent Skills 包，用于豆包工作、千问办公、Codex、Claude Code 等平台。
-- `dist/ashare-fundamentals-workbuddy-v0.2.1.zip`：WorkBuddy 包，仅把官方要求的版本、作者和中英文描述提升到 frontmatter 顶层；正文与脚本完全相同。
+- `dist/ashare-fundamentals-v0.2.2.zip`：标准 Agent Skills 包，用于豆包工作、千问办公、Codex、Claude Code 等平台。
+- `dist/ashare-fundamentals-workbuddy-v0.2.2.zip`：WorkBuddy 包，仅把官方要求的版本、作者和中英文描述提升到 frontmatter 顶层；正文与脚本完全相同。
 
 | 平台 | 推荐安装方式 | 本地目录方式 |
 | --- | --- | --- |

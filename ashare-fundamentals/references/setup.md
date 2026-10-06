@@ -39,9 +39,17 @@ After verifying representative ordinary and financial companies, run the full un
 
 ## DuckDB (optional)
 
+From a repository clone:
+
 ```bash
 python -m pip install -e '.[duckdb]'
 duckdb
+```
+
+If you only have the unpacked Skill package (the ZIP has no `pyproject.toml`), install DuckDB directly:
+
+```bash
+python -m pip install duckdb
 ```
 
 Example query:
